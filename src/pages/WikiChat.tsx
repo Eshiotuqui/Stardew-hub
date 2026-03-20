@@ -26,7 +26,9 @@ const LOADING_MESSAGES = [
   'Checando os arquivos do prefeito Lewis...',
 ]
 
-const API_URL = 'http://localhost:3001'
+// Em dev local com "npm run server" usa localhost:3001
+// Na Vercel, usa a própria URL (relativa)
+const API_URL = import.meta.env.DEV ? 'http://localhost:3001' : ''
 
 function formatMessage(text: string): string {
   return text
