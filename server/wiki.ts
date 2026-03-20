@@ -1,5 +1,5 @@
 import * as cheerio from 'cheerio'
-type CheerioElement = cheerio.Element
+import type { Element } from 'domhandler'
 
 const WIKI_BASE = 'https://stardewvalleywiki.com'
 const WIKI_API = `${WIKI_BASE}/mediawiki/api.php`
@@ -360,7 +360,7 @@ export async function getPageContent(title: string): Promise<WikiResult | null> 
   let currentScheduleLabel = ''
 
   $('.mw-parser-output').children().each((_, el) => {
-    const tag = (el as CheerioElement).tagName
+    const tag = (el as Element).tagName
     if (tag === 'h2' || tag === 'h3' || tag === 'h4') {
       const text = $(el).text().trim()
       if (text.toLowerCase().includes('schedule') || currentScheduleLabel) {
@@ -397,7 +397,7 @@ export async function getPageContent(title: string): Promise<WikiResult | null> 
   let currentGiftCategory: keyof typeof gifts | null = null
 
   $('.mw-parser-output').children().each((_, el) => {
-    const tag = (el as CheerioElement).tagName
+    const tag = (el as Element).tagName
     const text = $(el).text().trim().toLowerCase()
 
     if (tag === 'h2') {
@@ -459,7 +459,7 @@ export async function getPageContent(title: string): Promise<WikiResult | null> 
   }
 
   $('.mw-parser-output').children().each((_, el) => {
-    const tag = (el as CheerioElement).tagName
+    const tag = (el as Element).tagName
     if (tag === 'h2' || tag === 'h3') {
       pushSection()
       currentTitle = $(el).text().trim()
